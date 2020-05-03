@@ -29,7 +29,8 @@ Test?     : No
 
 So after changing the frequency and making a modification to the rtl2mqtt script I was using, the temps start getting published to my MQTT server:
 ```
-sensors/rtl_433/Maverick-ET73x/STATE {"time" : "2020-05-03 10:51:08", "model" : "Maverick-ET73x", "id" : 14066, "status" : "default", "temperature1_C" : 21.000, "temperature2_C" : 158.000}
+sensors/rtl_433/Maverick-ET73x/STATE {"time" : "2020-05-03 10:51:08", "model" : "Maverick-ET73x", "id" : 14066,
+"status" : "default", "temperature1_C" : 21.000, "temperature2_C" : 158.000}
 
 sensors/rtl_433/Maverick-ET73x/id 14066
 sensors/rtl_433/Maverick-ET73x/temperature2_C 158.0
