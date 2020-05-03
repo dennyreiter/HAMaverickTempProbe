@@ -1,0 +1,38 @@
+type: conditional
+conditions:
+  - entity: binary_sensor.maverick_on
+    state: "on"
+card:
+  type: vertical-stack
+  cards:
+    - type: horizontal-stack
+      cards:
+        - type: "custom:button-card"
+          entity: sensor.bbq_probe
+          show_state: true
+          icon: mdi:grill
+          color_type: icon
+          color: auto
+          name: "BBQ"
+          styles:
+            icon:
+              - color: '[[[ if (states["binary_sensor.bbq_temp_achieved"].state == "on") return "red"; ]]]'
+
+        - type: "custom:button-card"
+          entity: sensor.food_probe
+          show_state: true
+          icon: mdi:pig-variant
+          color_type: icon
+          color: auto
+          name: "Food"
+          styles:
+            icon:
+              - color: '[[[ if (states["binary_sensor.food_temp_achieved"].state == "on") return "green"; ]]]'
+    - type: entities
+      entities:
+        - type: custom:slider-entity-row
+          entity: input_number.bbq_target_temp
+          name: BBQ Target Temp
+        - type: custom:slider-entity-row
+          entity: input_number.food_target_temp
+          name: Food Target Temp

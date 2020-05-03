@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Grab all the latest files to do a commit
+
+cp $HOME/.homeassistant/packages/appliances/maverick.yaml packages/
+cp $HOME/.homeassistant/lovelace/maverick.yaml lovelace/
+scp orangepi:/home/denny/bin/denny-rtl2mqtt.py bin/

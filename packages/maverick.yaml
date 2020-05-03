@@ -1,0 +1,98 @@
+homeassistant:
+
+#################################################################
+#                                                               #
+#                           Group                               #
+#                                                               #
+#################################################################
+group:
+
+  bbq:
+    name: BBQ
+    entities:
+      - sensor.bbq_probe
+      - sensor.food_probe
+      - input_number.bbq_target_temp
+      - input_number.food_target_temp
+      - binary_sensor.maverick_on
+      - binary_sensor.bbq_temp_achieved
+      - binary_sensor.food_temp_achieved
+
+
+#################################################################
+#                                                               #
+#                        Binary Sensors                         #
+#                                                               #
+#################################################################
+binary_sensor:
+
+  - platform: template
+    sensors:
+      maverick_on:
+        friendly_name: "Maverick Probe is On"
+        entity_id: sensor.time
+        device_class: connectivity
+        value_template: >-
+          {{ (as_timestamp(utcnow()) - as_timestamp(state_attr('sensor.bbq_probe','time'))) < 300 }}
+
+      bbq_temp_achieved:
+        friendly_name: BBQ Temp Achieved
+        entity_id: sensor.bbq_probe
+        device_class: heat
+        delay_off:
+          minutes: 10
+        value_template: >-
+          {{ (states('sensor.bbq_probe')|float > states('input_number.bbq_target_temp')|float) and (states('binary_sensor.maverick_on') == 'on') }}
+
+      food_temp_achieved:
+        friendly_name: Food Temp Achieved
+        entity_id: sensor.food_probe
+        device_class: heat
+        value_template: >-
+          {{ (states('sensor.food_probe')|float > states('input_number.food_target_temp')|float) and (states('binary_sensor.maverick_on') == 'on') }}
+
+
+#################################################################
+#                                                               #
+#                           Sensors                             #
+#                                                               #
+#################################################################
+#                           RTL2MQTT                            #
+#  rtl_433_cmd = "/usr/local/bin/rtl_433 -f 433.776m -F json"   #
+#                                                               #
+#################################################################
+sensor:
+
+  - platform: mqtt
+    name: Food Probe
+    unit_of_measurement: '°C'
+    state_topic: "sensors/rtl_433/Maverick-ET73x/temperature1_C"
+    json_attributes_topic: "sensors/rtl_433/Maverick-ET73x/STATE"
+
+  - platform: mqtt
+    name: BBQ Probe
+    unit_of_measurement: '°C'
+    state_topic: "sensors/rtl_433/Maverick-ET73x/temperature2_C"
+    json_attributes_topic: "sensors/rtl_433/Maverick-ET73x/STATE"
+
+
+#################################################################
+#                                                               #
+#                         Input Number                          #
+#                                                               #
+#################################################################
+input_number:
+
+  bbq_target_temp:
+    name: BBQ Target Temperature
+    initial: 210
+    min: 100
+    max: 600
+    mode: slider
+
+  food_target_temp:
+    name: Food Target Temperature
+    initial: 160
+    min: 100
+    max: 600
+    mode: slider
