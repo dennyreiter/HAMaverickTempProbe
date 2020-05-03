@@ -23,4 +23,4 @@ The Lovelace configuration is pretty simple and uses (@RomRider)'s [Button Card]
 ## Node-RED
 I do all my Google notifications through Node-Red, so I have a flow that monitors when the ET-732 turns on, when the BBQ reaches temperature, and when the food is done.  This is where the `delay_on` in the BBQ probe binary sensor comes in handy.  Throughout the first smoking time, Google kept telling us that the BBQ had reached temperature as it ebbed and flowed.  This was cute and funny until about Midnight...
 
-![Node-Red](images/node-red-bbq-notifications.jpg)
+![Node-Red](images/node-red-bbq-notifications.png)
