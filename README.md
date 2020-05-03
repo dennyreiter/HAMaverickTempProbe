@@ -18,7 +18,7 @@ I didn't know about `delay_on` and `delay_off` before this, but they are definit
 ## Lovelace
 The Lovelace configuration is pretty simple and uses (@RomRider)'s [Button Card](https://github.com/custom-cards/button-card) to show the temperatures and (@thomasloven)'s [Entity Slider Row](https://github.com/thomasloven/lovelace-slider-entity-row), both available in [HACS](https://hacs.xyz/)
 
-![Dashboard](images/kitchen-dashboard.jog)
+![Dashboard](images/kitchen-dashboard.jpg)
 
 ## Node-RED
 I do all my Google notifications through Node-Red, so I have a flow that monitors when the ET-732 turns on, when the BBQ reaches temperature, and when the food is done.  This is where the `delay_on` in the BBQ probe binary sensor comes in handy.  Throughout the first smoking time, Google kept telling us that the BBQ had reached temperature as it ebbed and flowed.  This was cute and funny until about Midnight...
