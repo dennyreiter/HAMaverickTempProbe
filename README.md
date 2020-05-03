@@ -3,8 +3,40 @@ Integrating a Maverick ET-732 temperature probe for use in Home Assistant
 
 ## Reading the temperature probe
 The hardest part of this was getting the SDR to see the probe.  It was frustrating because this probe was listed as being supported.  Google was failing me, and then [this Issue](https://github.com/merbanan/rtl_433/issues/1360#issuecomment-621557516) popped up on the [rtl_433](https://github.com/merbanan/rtl_433) repository.  Apparently the ET-732 is just outside 433.92 MHz so my radio was not picking it up.  Changing the frequency to 433.776m makes it appear.  Be aware that this will make other things you may be monitoring drop out.  My LaCrosse temperature and humidity sensor still shows up, but the Acurite sensors from down the street do not.
+```
+Tuned to 433.776MHz.
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+time      : 2020-05-03 10:53:44
+model     : Maverick-ET73x                         Session_ID: 14066
+Status    : default      TemperatureSensor1: 21.00 C                         TemperatureSensor2: 174
+.00 C
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+time      : 2020-05-03 10:53:44
+model     : Maverick-ET73x                         Session_ID: 14066
+Status    : default      TemperatureSensor1: 21.00 C                         TemperatureSensor2: 174
+.00 C
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+time      : 2020-05-03 10:53:44
+model     : Maverick-ET73x                         Session_ID: 14066
+Status    : default      TemperatureSensor1: 21.00 C                         TemperatureSensor2: 174
+.00 C
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+time      : 2020-05-03 10:53:44
+model     : LaCrosse-TX141THBv2                    Sensor ID : 07
+Channel   : 00           Temperature: 19.40 C      Humidity  : 35 %          Battery   : 1
+Test?     : No
+```
 
 So after changing the frequency and making a modification to the rtl2mqtt script I was using, the temps start getting published to my MQTT server:
+```
+sensors/rtl_433/Maverick-ET73x/STATE {"time" : "2020-05-03 10:51:08", "model" : "Maverick-ET73x", "id" : 14066, "status" : "default", "temperature1_C" : 21.000, "temperature2_C" : 158.000}
+
+sensors/rtl_433/Maverick-ET73x/id 14066
+sensors/rtl_433/Maverick-ET73x/temperature2_C 158.0
+sensors/rtl_433/Maverick-ET73x/time 2020-05-03 10:51:08
+sensors/rtl_433/Maverick-ET73x/temperature1_C 21.0
+sensors/rtl_433/Maverick-ET73x/status default
+```
 
 I'm not positive where I got the script from, but it looks like an older version of (https://github.com/mverleun/RTL433-to-mqtt) I changed the JSON to be published to a STATE subtopic so I could use it, similar to what Tasmota does.
 
