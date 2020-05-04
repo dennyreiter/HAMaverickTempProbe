@@ -14,6 +14,7 @@ group:
       - sensor.food_probe
       - input_number.bbq_target_temp
       - input_number.food_target_temp
+      - input_text.food_name
       - binary_sensor.maverick_on
       - binary_sensor.bbq_temp_achieved
       - binary_sensor.food_temp_achieved
@@ -96,3 +97,13 @@ input_number:
     min: 100
     max: 600
     mode: slider
+
+#################################################################
+#                                                               #
+#                          Input Text                           #
+#                                                               #
+#################################################################
+input_text:
+  food_name:
+    name: Food
+    initial: Food
