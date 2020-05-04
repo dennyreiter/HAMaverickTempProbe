@@ -1,0 +1,12 @@
+type: entity-filter
+show_empty: false
+card:
+  title: BBQ Cleanup
+  show_header_toggle: false
+state_color: true
+entities:
+  - entity: input_boolean.bbq_water_pan_emptied
+  - input_boolean.bbq_grates_cleaned
+  - input_boolean.bbq_cooler_cleaned
+state_filter:
+  - "off"
