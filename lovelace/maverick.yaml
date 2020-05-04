@@ -36,3 +36,17 @@ card:
         - type: custom:slider-entity-row
           entity: input_number.food_target_temp
           name: Food Target Temp
+        - entity: input_text.food_name
+          type: 'custom:text-input-row'
+    - type: custom:mini-graph-card
+      hours_to_show: 24
+      points_per_hour: 6
+      decimals: 0
+      animate: true
+      show:
+        icon: false
+        name: false
+        state: false
+      entities:
+        - entity: sensor.bbq_probe
+        - entity: sensor.food_probe
