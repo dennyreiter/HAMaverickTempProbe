@@ -5,4 +5,8 @@
 cp $HOME/.homeassistant/packages/appliances/maverick.yaml packages/
 cp $HOME/.homeassistant/lovelace/maverick.yaml lovelace/
 cp $HOME/.homeassistant/lovelace/bbq-tasks.yaml lovelace/
+
+cp $HOME/.homeassistant/packages/appliances/oven.yaml packages/
+cp $HOME/.homeassistant/lovelace/oven.yaml lovelace/
+
 scp orangepi:/home/denny/bin/denny-rtl2mqtt.py bin/

@@ -7,17 +7,17 @@ homeassistant:
 #################################################################
 group:
 
-  bbq:
-    name: BBQ
+  oven:
+    name: Oven
     entities:
-      - sensor.bbq_probe
-      - sensor.food_probe
-      - input_number.bbq_target_temp
-      - input_number.food_target_temp
-      - input_text.food_name
-      - binary_sensor.maverick_on
-      - binary_sensor.bbq_temp_achieved
-      - binary_sensor.food_temp_achieved
+      - sensor.oven_probe
+      - sensor.oven_food_probe
+      - input_number.oven_target_temp
+      - input_number.oven_food_target_temp
+      - input_text.oven_food_name
+      - binary_sensor.oven_on
+      - binary_sensor.oven_temp_achieved
+      - binary_sensor.oven_food_temp_achieved
 
 
 #################################################################
@@ -29,28 +29,28 @@ binary_sensor:
 
   - platform: template
     sensors:
-      maverick_on:
-        friendly_name: "Maverick Probe is On"
+      oven_on:
+        friendly_name: "Oven Probe is On"
         entity_id: sensor.time
         device_class: connectivity
         value_template: >-
-          {{ (as_timestamp(utcnow()) - as_timestamp(state_attr('sensor.bbq_probe','time'))) < 300 }}
+          {{ (as_timestamp(utcnow()) - as_timestamp(state_attr('sensor.oven_probe','time'))) < 300 }}
 
-      bbq_temp_achieved:
-        friendly_name: BBQ Temp Achieved
-        entity_id: sensor.bbq_probe
+      oven_temp_achieved:
+        friendly_name: Oven Temp Achieved
+        entity_id: sensor.oven_probe
         device_class: heat
         delay_off:
           minutes: 10
         value_template: >-
-          {{ (states('sensor.bbq_probe')|float > states('input_number.bbq_target_temp')|float) and (states('binary_sensor.maverick_on') == 'on') }}
+          {{ (states('sensor.oven_probe')|float > states('input_number.oven_target_temp')|float) and (states('binary_sensor.oven_on') == 'on') }}
 
-      food_temp_achieved:
-        friendly_name: Food Temp Achieved
-        entity_id: sensor.food_probe
+      oven_food_temp_achieved:
+        friendly_name: Oven Food Temp Achieved
+        entity_id: sensor.oven_food_probe
         device_class: heat
         value_template: >-
-          {{ (states('sensor.food_probe')|float > states('input_number.food_target_temp')|float) and (states('binary_sensor.maverick_on') == 'on') }}
+          {{ (states('sensor.oven_food_probe')|float > states('input_number.oven_food_target_temp')|float) and (states('binary_sensor.oven_on') == 'on') }}
 
 
 #################################################################
@@ -65,22 +65,20 @@ binary_sensor:
 sensor:
 
   - platform: mqtt
-    name: Food Probe
-    unique_id: bbq_food_probe_7233
+    name: Oven Food Probe
+    unique_id: oven_food_probe_34088
     unit_of_measurement: '°C'
-    #    state_topic: "sensors/rtl_433/Maverick-ET73x/7233/temperature1_C"
-    state_topic: "sensors/rtl_433/Maverick-ET73x/7233/STATE"
-    value_template: "{{ value_json.temperature1_C }}"
-    json_attributes_topic: "sensors/rtl_433/Maverick-ET73x/7233/STATE"
+    state_topic: "sensors/rtl_433/Maverick-ET73x/34088/STATE"
+    value_template: "{{ value_json.temperature2_C }}"
+    json_attributes_topic: "sensors/rtl_433/Maverick-ET73x/34088/STATE"
 
   - platform: mqtt
-    name: BBQ Probe
-    unique_id: bbq_probe_7233
+    name: Oven Probe
+    unique_id: oven_probe_34088
     unit_of_measurement: '°C'
-    # state_topic: "sensors/rtl_433/Maverick-ET73x/7233/temperature2_C"
-    state_topic: "sensors/rtl_433/Maverick-ET73x/7233/STATE"
-    value_template: "{{ value_json.temperature2_C }}"
-    json_attributes_topic: "sensors/rtl_433/Maverick-ET73x/7233/STATE"
+    state_topic: "sensors/rtl_433/Maverick-ET73x/34088/STATE"
+    value_template: "{{ value_json.temperature1_C }}"
+    json_attributes_topic: "sensors/rtl_433/Maverick-ET73x/34088/STATE"
 
 
 #################################################################
@@ -90,16 +88,16 @@ sensor:
 #################################################################
 input_number:
 
-  bbq_target_temp:
-    name: BBQ Target Temperature
-    initial: 210
+  oven_target_temp:
+    name: Oven Target Temperature
+    initial: 350
     min: 100
     max: 600
     mode: slider
 
-  food_target_temp:
-    name: Food Target Temperature
-    initial: 160
+  oven_food_target_temp:
+    name: Oven Food Target Temperature
+    initial: 165
     min: 100
     max: 600
     mode: slider
@@ -110,6 +108,6 @@ input_number:
 #                                                               #
 #################################################################
 input_text:
-  food_name:
-    name: Food
-    initial: Food
+  oven_food_name:
+    name: Oven Food
+    initial: Grub

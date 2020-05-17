@@ -1,6 +1,6 @@
 type: conditional
 conditions:
-  - entity: binary_sensor.maverick_on
+  - entity: binary_sensor.oven_on
     state: "on"
 card:
   type: vertical-stack
@@ -8,35 +8,35 @@ card:
     - type: horizontal-stack
       cards:
         - type: "custom:button-card"
-          entity: sensor.bbq_probe
+          entity: sensor.oven_probe
           show_state: true
-          icon: mdi:grill
+          icon: mdi:toaster-oven
           color_type: icon
           color: auto
-          name: "BBQ"
+          name: "Oven"
           styles:
             icon:
-              - color: '[[[ if (states["binary_sensor.bbq_temp_achieved"].state == "on") return "red"; ]]]'
+              - color: '[[[ if (states["binary_sensor.oven_temp_achieved"].state == "on") return "red"; ]]]'
 
         - type: "custom:button-card"
-          entity: sensor.food_probe
+          entity: sensor.oven_food_probe
           show_state: true
-          icon: mdi:pig-variant
+          icon: mdi:food
           color_type: icon
           color: auto
-          name: '[[[ return states["input_text.food_name"].state ]]]'
+          name: '[[[ return states["input_text.oven_food_name"].state ]]]'
           styles:
             icon:
-              - color: '[[[ if (states["binary_sensor.food_temp_achieved"].state == "on") return "green"; ]]]'
+              - color: '[[[ if (states["binary_sensor.oven_food_temp_achieved"].state == "on") return "green"; ]]]'
     - type: entities
       entities:
         - type: custom:slider-entity-row
-          entity: input_number.bbq_target_temp
-          name: BBQ Target Temp
+          entity: input_number.oven_target_temp
+          name: Oven Target Temp
         - type: custom:slider-entity-row
-          entity: input_number.food_target_temp
+          entity: input_number.oven_food_target_temp
           name: Food Target Temp
-        - entity: input_text.food_name
+        - entity: input_text.oven_food_name
           type: 'custom:text-input-row'
     - type: custom:mini-graph-card
       hours_to_show: 24
@@ -48,5 +48,5 @@ card:
         name: false
         state: false
       entities:
-        - entity: sensor.bbq_probe
-        - entity: sensor.food_probe
+        - entity: sensor.oven_probe
+        - entity: sensor.oven_food_probe
