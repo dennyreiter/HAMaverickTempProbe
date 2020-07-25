@@ -41,7 +41,7 @@ sensors/rtl_433/Maverick-ET73x/status default
 
 I'm not positive where I got the script from, but it looks like an older version of (https://github.com/mverleun/RTL433-to-mqtt) I changed the JSON to be published to a STATE subtopic so I could use it, similar to what Tasmota does.
 
-*UPDATE* The script has been updated so that it also makes the device ID part of the sub-topic.  The reason is that we know have two probes, one for the smoker and one for the oven.  My wife thought the smoker probe integration was cool enough that she wanted to use it for the oven.  It's hard to argue when the wife buys in.
+*UPDATE* The script has been updated so that it also makes the device ID part of the sub-topic.  The reason is that we now have two probes, one for the smoker and one for the oven.  My wife thought the smoker probe integration was cool enough that she wanted to use it for the oven.  It's hard to argue when the wife buys in.
 
 ## Home Assistant Sensors
 I wanted to know if the ET-732 was on, what each temperature was, and also if they had reached the desired temperatures, which I did by creating a sensor for each temperature, adding a couple input_numbers for my setpoints, and some template binary sensors.
