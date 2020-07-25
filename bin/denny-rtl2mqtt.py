@@ -14,7 +14,7 @@ from config import *
 # rtl_433_cmd = "/usr/local/bin/rtl_433 -f 915M -F json" 
 
 # Maverick Temp probe
-rtl_433_cmd = "/usr/local/bin/rtl_433 -f 433.776m -f 433.92 -H 15 -F json" 
+rtl_433_cmd = "/usr/local/bin/rtl_433 -f 433.776m -f 433.92m -H 15 -F json" 
 
 # Define MQTT event callbacks
 def on_connect(client, userdata, flags, rc):
