@@ -12,9 +12,9 @@ from config import *
 
 # 915MHz
 # rtl_433_cmd = "/usr/local/bin/rtl_433 -f 915M -F json" 
+
 # Maverick Temp probe
 rtl_433_cmd = "/usr/local/bin/rtl_433 -f 433.776m -f 433.92 -H 15 -F json" 
-#rtl_433_cmd = "/usr/local/bin/rtl_433 -F json" 
 
 # Define MQTT event callbacks
 def on_connect(client, userdata, flags, rc):
@@ -66,13 +66,11 @@ while True:
             subtopic = ""
             json_dict = json.loads(line)
             for item in json_dict:
-                value = json_dict[item]
-                if "model" in item:
-                    subtopic+="/"+value
-            for item in json_dict:
-                value = json_dict[item]
-                if "id" in item:
-                    subtopic+="/"+str(value)
+                if item =="model":
+                    model = "/"+str(json_dict[item])
+                if item =="id":
+                    id = "/"+str(json_dict[item])
+            subtopic = model + id
 
             mqttc.publish(MQTT_TOPIC+subtopic+"/STATE", payload=line,qos=MQTT_QOS)
 
